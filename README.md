@@ -6,4 +6,4 @@ Easy access to Active Directory Management.
 2. Group Policy Objects
 3. Print Management
 
-With easy expansion!
+Easily expanded!
