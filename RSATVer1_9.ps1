@@ -21,9 +21,9 @@ do {
             Write-Host "`t`t`t3. Print Management" -ForegroundColor Green
             Write-Host "`t`t`t4. Wrong password" -ForegroundColor Green
             Write-Host ""
-            Write-Host "`t`tX - Avslutt`n" -ForegroundColor Red
+            Write-Host "`t`tX - Exit`n" -ForegroundColor Red
             Write-Host ""
-            Write-Host -nonewline "`tVelg software: " -ForegroundColor Yellow
+            Write-Host -nonewline "`tSoftware: " -ForegroundColor Yellow
             
             $choice = read-host
             
