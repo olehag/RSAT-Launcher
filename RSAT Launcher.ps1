@@ -76,11 +76,6 @@ do {
                     $creds = Get-Credential $env:USERDOMAIN\$env:USERNAME-admin
                     Clear-Host
                 }
-
-                "4" #Expansion
-                {
-                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
-                }
             
                 "5" #Expansion
                 {
