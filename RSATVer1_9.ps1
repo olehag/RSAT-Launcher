@@ -20,6 +20,12 @@ do {
             Write-Host "`t`t`t2. Group Policy Object" -ForegroundColor Green
             Write-Host "`t`t`t3. Print Management" -ForegroundColor Green
             Write-Host "`t`t`t4. Wrong password" -ForegroundColor Green
+            #Write-Host "`t`t`t4. " -ForegroundColor Green
+            #Write-Host "`t`t`t5. " -ForegroundColor Green
+            #Write-Host "`t`t`t6. " -ForegroundColor Green
+            #Write-Host "`t`t`t7. " -ForegroundColor Green
+            #Write-Host "`t`t`t8. " -ForegroundColor Green
+            #Write-Host "`t`t`t9. " -ForegroundColor Green
             Write-Host ""
             Write-Host "`t`tX - Exit`n" -ForegroundColor Red
             Write-Host ""
@@ -28,7 +34,7 @@ do {
             $choice = read-host
             
             Write-Host ""
-            #       Add nr. (E.g. [1-99x]) for testing purposes.
+                #    Add (example: [1-6x]) if you have expanded the meny.
             $ok = $choice -match '^[1-4x]+$'
             
             if ( -not $ok) 
@@ -70,12 +76,37 @@ do {
                     $creds = Get-Credential $env:USERDOMAIN\$env:USERNAME-admin
                     Clear-Host
                 }
-            
-                "5" #Testing.
+
+                "4" #Expansion
                 {
                     #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
                 }
             
+                "5" #Expansion
+                {
+                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
+                }
+                
+                "6" #Expansion
+                {
+                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
+                }
+
+                "7" #Expansion
+                {
+                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
+                }
+
+                "8" #Expansion
+                {
+                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
+                }
+
+                "9" #Expansion
+                {
+                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
+                }
+         
             }
 
 
