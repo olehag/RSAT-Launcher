@@ -6,15 +6,13 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize) -eq $null)
 {
-    Write-Host "`tCouldn't find Remote Server Administration Tools,"
-
-    Write-Host "`t press any button to download..." -ForegroundColor Yellow
+    Write-Host "`tCouldn't find Remote Server Administration Tools" -ForegroundColor Yellow
+    Write-Host "`tpress any button to download..." -ForegroundColor Yellow
 
     $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
     $GitHubScript = Invoke-WebRequest https://raw.githubusercontent.com/olehag/Download-RSAT/master/GET-RSAT.ps1
-    Invoke-Expression $($GitHubScript.Content) 
-
+    Invoke-Expression $($GitHubScript.Content)
 }
 else
 {
@@ -24,7 +22,11 @@ else
     }
     else
     {
-        Write-Host "RSAT is not activated.."
+        Write-Host "`tRSAT is not activated..."
+        Write-Host ""
+        Write-Host "`tPress any button to continue..." -ForegroundColor Yellow
+
+        $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
         #Script activation dosn't work atm.
         #Enable-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize
