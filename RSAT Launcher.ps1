@@ -1,4 +1,4 @@
-﻿#Lord Hagen / olehag04@nfk.no
+#Lord Hagen / olehag04@nfk.no
 #Rev1.9
 
 #next line might be needed.
