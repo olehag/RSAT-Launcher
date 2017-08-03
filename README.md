@@ -1,5 +1,7 @@
 # RSAT Launcher
 
+#Bugged atm. 03.08.17
+
 Easy access to Active Directory Management.
 
 1. Users & Computers
