@@ -9,6 +9,7 @@ Write-Host ""
 Write-Host "Input Credentials"
 Write-Host ""
 
+#Change "$env:userdomain\$env:username-admin" to fit your need.
 $creds = Get-Credential $env:USERDOMAIN\$env:USERNAME-admin
 Clear-Host
 
