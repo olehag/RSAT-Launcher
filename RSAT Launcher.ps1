@@ -1,9 +1,36 @@
 #Lord Hagen / olehag04@nfk.no
-#Rev1.9
+#Rev 1.9.1
 
-#next line might be needed.
-#if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+#next line starts the script elevated. Uncomment if needed.
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
+if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize) -eq $null)
+{
+    Write-Host "`tCouldn't find Remote Server Administration Tools,"
+
+    Write-Host "`t press any button to download..." -ForegroundColor Yellow
+
+    $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+    $GitHubScript = Invoke-WebRequest https://raw.githubusercontent.com/olehag/Download-RSAT/master/GET-RSAT.ps1
+    Invoke-Expression $($GitHubScript.Content) 
+
+}
+else
+{
+    if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*" -And $_.State -like "Disabled"} | Format-Table -AutoSize) -eq $null)
+    {
+
+    }
+    else
+    {
+        Write-Host "RSAT is not activated.."
+
+        #Script activation dosn't work atm.
+        #Enable-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize
+
+    }
+}
 
 Write-Host ""
 Write-Host "Input Credentials"
