@@ -1,38 +1,10 @@
 #Lord Hagen / olehag04@nfk.no
 #Rev 1.9.1
 
-#next line starts the script elevated. Uncomment if needed.
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+#next line starts the script elevated. Needed to check for RSAT.
+#if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
-if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize) -eq $null)
-{
-    Write-Host "`tCouldn't find Remote Server Administration Tools" -ForegroundColor Yellow
-    Write-Host "`tpress any button to download..." -ForegroundColor Yellow
 
-    $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
-    $GitHubScript = Invoke-WebRequest https://raw.githubusercontent.com/olehag/Download-RSAT/master/GET-RSAT.ps1
-    Invoke-Expression $($GitHubScript.Content)
-}
-else
-{
-    if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*" -And $_.State -like "Disabled"} | Format-Table -AutoSize) -eq $null)
-    {
-
-    }
-    else
-    {
-        Write-Host "`tRSAT is not activated..."
-        Write-Host ""
-        Write-Host "`tPress any button to continue..." -ForegroundColor Yellow
-
-        $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
-        #Script activation dosn't work atm.
-        #Enable-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize
-
-    }
-}
 
 Write-Host ""
 Write-Host "Input Credentials"
@@ -50,7 +22,7 @@ do {
             Write-Host "`t`t`t2. Group Policy Object" -ForegroundColor Green
             Write-Host "`t`t`t3. Print Management" -ForegroundColor Green
             Write-Host "`t`t`t4. Wrong password" -ForegroundColor Green
-            #Write-Host "`t`t`t5. " -ForegroundColor Green
+            Write-Host "`t`t`t5. Download/install RSAT" -ForegroundColor Green
             #Write-Host "`t`t`t6. " -ForegroundColor Green
             #Write-Host "`t`t`t7. " -ForegroundColor Green
             #Write-Host "`t`t`t8. " -ForegroundColor Green
@@ -64,7 +36,7 @@ do {
             
             Write-Host ""
                 #    Add (example: [1-6x]) if you have expanded the meny.
-            $ok = $choice -match '^[1-4x]+$'
+            $ok = $choice -match '^[1,2,3,4,5x]+$'
             
             if ( -not $ok) 
                 {
@@ -106,9 +78,43 @@ do {
                     Clear-Host
                 }
             
-                "5" #Expansion
+                "5" #RSAT
                 {
-                    #Start-Process powershell -workingdirectory $PSHOME -Credential $creds -ArgumentList "/c xxx.msc"
+                    #next line starts the script elevated. Needed to check for RSAT.
+                    if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+                    
+                    #Try to find the windowsfeature. Download if not.
+                    if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize) -eq $null)
+                    {
+                        Write-Host "`tCouldn't find Remote Server Administration Tools" -ForegroundColor Yellow
+                        Write-Host "`tpress any button to download..." -ForegroundColor Yellow
+
+                        $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+                        
+                        #Get RSAT script, fetches x86 or x64 based on system. only for WIN 10.
+                        $GitHubScript = Invoke-WebRequest https://raw.githubusercontent.com/olehag/Download-RSAT/master/GET-RSAT.ps1
+                        Invoke-Expression $($GitHubScript.Content)
+                    }
+                    
+                    else
+                    {
+                        if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*" -And $_.State -like "Disabled"} | Format-Table -AutoSize) -eq $null)
+                        {
+
+                        }
+                        else
+                        {
+                            Write-Host "`tRSAT is not activated..."
+                            Write-Host ""
+                            Write-Host "`tPress any button to continue..." -ForegroundColor Yellow
+
+                            $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+                            #Script activation dosn't work atm.
+                            #Enable-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -like "RSAT*"} | Format-Table -AutoSize
+
+                        }
+                    }
                 }
                 
                 "6" #Expansion
