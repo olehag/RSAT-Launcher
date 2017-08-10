@@ -2,7 +2,7 @@
 
 Download/install works ish, but not as wanted. yet.
 
-#Bugged atm. 10.08.17
+#Bugged atm. 10.08.17.
 Works on testmachine..
 
 Easy access to Active Directory Management.
