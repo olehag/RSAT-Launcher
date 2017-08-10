@@ -1,6 +1,9 @@
 # RSAT Launcher
 
-#Bugged atm. 03.08.17
+Download/install works ish, but not as wanted. yet.
+
+#Bugged atm. 10.08.17
+Works on testmachine..
 
 Easy access to Active Directory Management.
 
@@ -8,4 +11,4 @@ Easy access to Active Directory Management.
 2. Group Policy Objects
 3. Print Management
 
-Easily expanded!
+Easily expanded to other RSA Tools!
