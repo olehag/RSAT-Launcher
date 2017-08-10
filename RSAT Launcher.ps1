@@ -1,10 +1,6 @@
 #Lord Hagen / olehag04@nfk.no
 #Rev 1.9.1
 
-#next line starts the script elevated. Needed to check for RSAT.
-#if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
-
-
 
 Write-Host ""
 Write-Host "Input Credentials"
@@ -36,7 +32,7 @@ do {
             
             Write-Host ""
                 #    Add (example: [1-6x]) if you have expanded the meny.
-            $ok = $choice -match '^[1,2,3,4,5x]+$'
+            $ok = $choice -match '^[1-5x]+$'
             
             if ( -not $ok) 
                 {
@@ -74,6 +70,10 @@ do {
 
                 "4" #Wrong password
                 {
+                    Clear-Host
+                    Write-Host ""
+                    Write-Host "Input Credentials"
+                    Write-Host ""
                     $creds = Get-Credential $env:USERDOMAIN\$env:USERNAME-admin
                     Clear-Host
                 }
@@ -100,7 +100,9 @@ do {
                     {
                         if((Get-WindowsOptionalFeature -online | Where-Object {$_.FeatureName -like "RSAT*" -And $_.State -like "Disabled"} | Format-Table -AutoSize) -eq $null)
                         {
-
+                            Write-Host "RSAT is already installed!" -ForegroundColor Green
+                            Start-Sleep -Seconds 2
+                            Clear-Host
                         }
                         else
                         {
