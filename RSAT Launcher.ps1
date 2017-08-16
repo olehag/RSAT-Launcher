@@ -19,7 +19,7 @@ do {
             Write-Host "`t`t`t2. Group Policy Object" -ForegroundColor Green
             Write-Host "`t`t`t3. Print Management" -ForegroundColor Green
             Write-Host "`t`t`t4. Wrong password" -ForegroundColor Green
-            Write-Host "`t`t`t5. Download/install RSAT" -ForegroundColor Green
+            Write-Host "`t`t`t5. Download & install" -ForegroundColor Green
             #Write-Host "`t`t`t6. " -ForegroundColor Green
             #Write-Host "`t`t`t7. " -ForegroundColor Green
             #Write-Host "`t`t`t8. " -ForegroundColor Green
