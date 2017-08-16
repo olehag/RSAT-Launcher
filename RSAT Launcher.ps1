@@ -6,6 +6,7 @@ Write-Host ""
 Write-Host "Input Credentials"
 Write-Host ""
 
+
 #Change "$env:userdomain\$env:username-admin" to fit your need.
 $creds = Get-Credential $env:USERDOMAIN\$env:USERNAME-admin
 Clear-Host
@@ -78,7 +79,7 @@ do {
                     Clear-Host
                 }
             
-                "5" #RSAT
+                "5" #RSAT ###########!!!!!!!!!!   This will run a Powershell-Script from github!   !!!!!!!!!!!!#################
                 {
                     #next line starts the script elevated. Needed to check for RSAT.
                     if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
