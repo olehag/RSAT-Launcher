@@ -1,7 +1,6 @@
 # Remote Server Administration Tools
 
-#Bugged atm. 16.08.17.
-Works on testmachine..
+NOTE: The account you use have to be local administrator.
 
 Easy access to Active Directory Management.
 
