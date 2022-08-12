@@ -1,4 +1,3 @@
-#Lord Hagen / olehag04@nfk.no
 #Rev 1.9.1
 
 
